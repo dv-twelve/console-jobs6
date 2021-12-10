@@ -1,0 +1,119 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp6
+{
+    class One
+    {
+        int[] arr;
+        int[,] arr2;
+        public One(int N, int n, int m)
+        {
+            Random random = new Random();
+            //
+            arr = new int[N];
+            for (int i=0; i<N; i++)
+            {
+                arr[i] = random.Next(-50, 50);
+            }
+            //
+            arr2 = new int[n, m];
+            for (int i=0; i< n; i++)
+            {
+                for (int j=0; j<m; j++)
+                {
+                    arr2[i, j] = random.Next(-50, 50);
+                }
+            }
+        }
+        public string Show()
+        {
+            string str = "";
+            foreach (int a in arr)
+            {
+                str += a + " ";
+            }
+            return str;
+        }
+        public string Show2()
+        {
+            string str = "";
+            for (int i = 0; i < arr2.GetUpperBound(0) + 1; i++)
+            {
+                for (int j = 0; j < arr2.GetUpperBound(1) + 1; j++)
+                {
+                    str += arr2[i, j] + " ";
+                }
+                str += '\n';
+            }
+            return str;
+        }
+        public void Replace(int a, int b)
+        {
+            //
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < a || arr[i] > b)
+                {
+                    continue;
+                }
+                else
+                {
+                    arr[i] = 0;
+                }
+            }
+            //
+            for (int i = 0; i < arr2.GetUpperBound(0) + 1; i++)
+            {
+                for (int j = 0; j < arr2.GetUpperBound(1) + 1; j++)
+                {
+                    if (arr2[i, j] < a || arr2[i, j] > b)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        arr2[i, j] = 0;
+                    }
+                }                
+            }
+        }
+    }
+}
+
+using System;
+using ConsoleApp6;
+
+namespace ConsoleApp6_1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Console.Write("Введите размер одномерного массива: ");
+                int N = int.Parse(Console.ReadLine());
+                Console.Write("Введите количество строк двумерного массива: ");
+                int n = int.Parse(Console.ReadLine());
+                Console.Write("Введите количество столбцов двумерного массива: ");
+                int m = int.Parse(Console.ReadLine());
+                One o = new One(N, n, m);
+                Console.WriteLine("Одномерный массив:\n{0}", o.Show());
+                Console.WriteLine("Двумерный массив:\n{0}", o.Show2());
+                Console.Write("Введите границу A: ");
+                int a = int.Parse(Console.ReadLine());
+                Console.Write("Введите границу B: ");
+                int b = int.Parse(Console.ReadLine());
+                o.Replace(a, b);
+                Console.WriteLine("Изменный одномерный массив:\n{0}", o.Show());
+                Console.WriteLine("Изменный двумерный массив:\n{0}", o.Show2());
+            }
+            catch(System.FormatException)
+            {
+                Console.WriteLine("Введены неправильные данные");
+            }
+        }
+    }
+}
