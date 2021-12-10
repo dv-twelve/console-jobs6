@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp6
+{
+    class Two
+    {
+        double[] arr;
+        public Two(string str)
+        {
+            string[] str2 = str.Split(' ');
+            arr = new double[str2.Length];
+            for (int i = 0; i < str2.Length; i++) 
+            {
+                arr[i] = Double.Parse(str2[i]);
+            }
+        }
+        public string ShowArr()
+        {
+            string str = "";
+            foreach (int a in arr)
+            {
+                str += a + " ";
+            }
+            return str;
+        }
+        double Max
+        {
+            get
+            {
+                double max = arr[0];
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (arr[i] > max)
+                    {
+                        max = arr[i];
+                    }
+                }
+                return max;
+            }
+        }
+        public void Replace()
+        {
+            double max = Max;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] == max)
+                {
+                    arr[i] = 0;
+                }
+            }
+        }
+    }
+}
+
+using ConsoleApp6;
+using System;
+
+namespace ConsoleApp6_2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Console.Write("Вводите десятичные числа через пробел: ");
+                string str = Console.ReadLine();
+                Two o = new Two(str);
+                Console.WriteLine("Одномерный массив:\n{0}", o.ShowArr());
+                o.Replace();
+                Console.WriteLine("Одномерный массив после изменения:\n{0}", o.ShowArr());
+            }
+            catch(System.FormatException)
+            {
+                Console.WriteLine("Введены неправильные данные");
+            }
+        }
+    }
+}
